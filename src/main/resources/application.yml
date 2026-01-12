@@ -1,0 +1,62 @@
+## Initial Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /app
+  error:
+    whitelabel:
+      enabled: false
+#    include-message: always
+#    include-binding-errors: always
+#    include-exception: true
+#    include-stacktrace: always
+#    root: INFO
+
+spring:
+    datasource:
+      url: jdbc:h2:file:./data/appdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: update
+#      show-sql: true
+#      properties:
+#        hibernate:
+#         format_sql: true
+      open-in-view: false
+    flyway:
+      enabled: true
+      locations: classpath:db/migeration
+    h2:
+      console:
+        enabled: true
+        path: /db-admin-concole
+management:
+  endpoints:
+    web:
+      exposure:
+       include: health,info,metrics,env,loggers
+  endpoint:
+    health:
+      show-details: when_authorized
+#Default Admin User Id Password.
+default:
+  user:
+   id: admin-usr
+   pwd: admin123
+logging:
+  level:
+#   org.hibernate.SQL: DEBUG
+#   org.hibernate.orm.jdbc.bind: TRACE
+   org.springframework.security: DEBUG
+   org.springdoc: DEBUG
+   org.springframework.web: DEBUG
+info:
+  app:
+   name: Test Application
+   version: 1.0.0
+   description: Test Discription   
+   
